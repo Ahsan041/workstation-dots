@@ -1,0 +1,93 @@
+#-- Launch terminal -------------------
+super + Return
+  kitty
+
+super + shift + Return
+  pypr toggle term 
+
+#-- Launch menu -----------------------
+super + d
+  hyprmenu
+
+
+#-- Launch Applications ---------------
+super + shift + w
+  firefox 
+
+super + shift + n
+  kitty -e lvim
+
+super + shift + f
+  thunar
+
+#-- Hyprland --------------------------
+super + q
+  hyprctl dispatch killactive
+
+super + shift + q 
+  hyprctl dispatch exit
+
+super + f
+  hyprctl dispatch fullscreen
+
+super + space
+  hyprctl dispatch togglefloating active
+
+super + s
+  hyprctl dispatch togglesplit
+
+super + g
+  hyprctl dispatch togglegroup
+
+
+#-- Window Management -----------------
+# Focus 
+super + {Left,Right,Up,Down}
+  hyprctl dispatch movefocus {l,r,u,d}
+
+# Move
+super + shift + {Left,Right,Up,Down}
+  hyprctl dispatch movewindow {l,r,u,d}
+
+# Resize
+super + ctrl + {Left,Right,Up,Down}
+  hyprctl dispatch resizeactive { -45 0, 45 0, 0 -45, 0 45 }
+
+# Minimize
+super + e
+  pypr toggle_minimized active
+
+super + shift + minus
+  hyprctl dispatch bringactivetotop
+
+#-- Screenshots ------------------------
+Print
+  hyprshot -m window
+
+super + Print 
+  hyprshot -m region
+
+#-- Notification Center ---------------
+ctrl + alt + n 
+  swaync-client -t
+
+#-- Volume control --------------------
+XF86Audio{RaiseVolume,LowerVolume}
+  volumectl -u {up,down}
+
+XF86AudioMute
+  volumectl toogle-mute
+
+XF86AudioMicMute
+  volumectl -m toggle-mute
+
+
+#-- Workspaces -----------------------
+super + {1-6}
+  hyprsome workspace {1-6}
+
+super + shift + {1-6}
+  hyprsome move {1-6}
+
+super + alt + {1-6}
+  hyprsome movefocus {1-6}

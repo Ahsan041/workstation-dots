@@ -1,0 +1,92 @@
+*/* PYTHON_TARGETS: python3_11
+*/* LUA_TARGETS: luajit
+*/* LLVM_TARGETS: X86
+media-libs/vulkan-loader layers
+media-libs/mesa vulkan wayland lm-sensors
+x11-drivers/nvidia-drivers wayland static-libs
+app-editors/neovim lto
+dev-libs/libxml2 icu
+media-libs/harfbuzz icu
+>=media-libs/libpng-1.6.39 -apng
+net-libs/nodejs lto npm pax-kernel
+dev-lang/rust clippy miri nightly rust-analyzer rustfmt system-llvm
+net-p2p/transmission gtk -qt5 -qt6
+sys-config/ltoize keep-nocommon clang
+dev-util/cmake -emacs ncurses -qt5
+media-fonts/iosevka X iosevka-aile
+app-text/xmlto text
+xfce-base/thunar udisks
+gnome-base/gvfs udisks
+dev-libs/libdbusmenu gtk3
+app-crypt/gcr gtk
+sys-apps/kmod zstd
+sys-boot/grub:2 device-mapper
+app-admin/sysstat lto lm-sensors
+sys-libs/zlib minizip
+app-text/poppler cairo
+dev-lang/python lto pgo ensurepip tk hardened
+gui-apps/waybar experimental libinput tray logind network popups pipewire upower wifi udev
+sys-devel/gcc lto pgo graphite jit default-stack-clash-protection rust
+sys-apps/firejail apparmor private-home
+app-editors/emacs alsa dynamic-loading gfile gmp gtk gui gzip-el harfbuzz imagemagick inotify jit jpeg motif png ssl svg threads tiff tree-sitter zlib -X
+app-text/ghostscript-gpl cups
+dev-python/PyQt5 widgets
+media-sound/pulseaudio -daemon
+media-video/pipewire sound-server
+gui-apps/swaybg gdk-pixbuf
+gui-apps/eww wayland -X
+gui-apps/swaylock gdk-pixbuf
+gui-apps/swaync scripting
+sys-apps/kmod tools
+gui-apps/grim jpeg
+dev-qt/qtbase opengl egl eglfs gles2-only
+dev-qt/qtdeclarative opengl
+gui-libs/xdg-desktop-portal-hyprland systemd
+sys-apps/xdg-desktop-portal screencast geolocation
+www-client/firefox lto pgo wayland -X -telemetry hwaccel -jack -jumbo-build screencast openh264 pulseaudio clanglto-O3.conf -system-av1 -system-harfbuzz -system-icu -system-jpeg -system-libevent -system-libvpx -system-webp -eme-free
+gui-wm/hyprland X systemd video_cards_nvidia
+net-vpn/protonvpn-gui python_targets_python3_11
+media-video/ffmpeg x264
+sys-apps/systemd policykit
+gui-libs/wlroots tinywl
+media-sound/mpg123 -pulseaudio
+media-libs/libpng apng
+dev-qt/qtgui eglfs egl dbus
+sys-libs/gdbm berkdb
+dev-qt/qtwidgets dbus
+sys-kernel/gentoo-sources experimental
+dev-qt/qtbase opengl egl eglfs gles2-only
+dev-qt/qtdeclarative opengl
+dev-libs/boost context
+dev-libs/boehm-gc cxx
+x11-base/xwayland xcsecurity
+virtual/libcrypt static-libs
+sys-libs/libxcrypt static-libs
+gui-libs/wlroots vulkan libinput drm
+media-fonts/nerd-fonts jetbrainsmono firacode
+gui-libs/gtk-layer-shell introspection
+net-wireless/wpa_supplicant dbus
+net-p2p/transmission gtk -qt5 -qt6
+net-libs/libssh server
+sys-config/ltoize clang
+sys-apps/flatpak policykit seccomp
+app-admin/keepassxc browser autotype keeshare network yubikey
+dev-python/PyQt5 opengl
+dev-python/pillow webp
+dev-python/QtPy svg printsupport
+dev-python/PyQt5 network svg sql printsupport
+app-crypt/gnupg nls
+app-office/libreoffice branding googledrive gtk gstreamer
+dev-libs/boost nls
+dev-libs/xmlsec nss
+sys-auth/polkit gtk daemon
+app-misc/tmux vim-syntax systemd utempter
+app-editors/vim terminal gpm python sound vim-pager
+net-analyzer/snort threads
+sys-process/cronie anacron
+app-portage/eix optimization strong-security tools
+media-gfx/sxiv exif gif jpeg png webp
+x11-terms/kitty wayland -X
+app-misc/fdupes ncurses
+x11-misc/gammastep geoclue gtk appindicator wayland
+dev-libs/libpcre2 pcre32

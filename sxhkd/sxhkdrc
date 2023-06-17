@@ -1,0 +1,173 @@
+################################
+### G E N E R A L    H E L P ###
+################################
+super + Escape
+	pkill -USR1 -x sxhkd; \
+	notify-send "sxhkd restarted"
+
+super + shift + Escape
+	bat $XDG_CONFIG_HOME/sxhkd/sxhkdrc | yad --text-info
+
+
+################################
+### A P P L I C A T I O N S ####
+################################
+
+super + Return
+  st
+
+super + shift + Return
+	dwmterm --float
+
+super + alt + Return
+	dwmterm --full
+
+super + d
+  rofi -show drun
+
+#super + shift + Return
+#st -n spterm -g 120x34
+
+#super + shift + b
+# brave
+
+#super + shift + e
+#  emacsclient --create-frame --alternate-editor=""
+
+super + shift + {n,f}
+  st -e {lvim,ranger}
+
+###############
+### L O C K ###
+###############
+ctrl + alt + l
+	betterlockscreen --lock
+
+#################################
+### H A R D W A R E   K E Y S ###
+#################################
+
+Print
+	dwmshot --now
+
+ctrl + Print
+	dwmshot --win
+
+super + Print
+	dwmshot --area
+
+XF86Audio{RaiseVolume,LowerVolume}
+	dwmvol { --inc, --dec}
+
+XF86Audio{Mute,MicMute}
+	dwmvol { --toggle, --toggle-mic}
+
+
+#############
+### D W M ###
+#############
+super + ctrl + q
+  dwmc quit {0}
+
+super + shift + q
+  dwmc quit {1}
+
+###################################
+### M A N A G E   W I N D O W S ###
+###################################
+
+super + q
+  dwmc killclient
+
+super + { Left, Right }
+  dwmc focusstack { +1, -1 }
+
+super + shift + { Left, Right }
+  dwmc movestack { +1, -1 }
+
+super + ctrl + { i, d }
+  dwmc incnmaster { +1, -1 }
+
+ctrl + alt + {Left, Right}
+	dwmc rotatestack {-1,+1}
+
+ctrl + {Left, Right, Up, Down}
+	dwmc focusdir {0,1,2,3}
+
+ctrl + alt + shift + {e,r}
+	dwmc aspectresize {+24,-24}
+
+super + shift + plus
+	dwmc zoom
+
+super + {h, r}
+	dwmc {hidewin, restorewin}
+
+super + shift + {h, r}
+	dwmc {hideotherwins, 
+
+super + ctrl + z
+	dwmc showhideclient
+	
+###################################
+####  L A Y O U T S / T A G S  ####
+###################################
+super + {Left, Right}
+	dwmc setmfact {-,+}0.05
+
+super + {Up,Down,0}
+	dwmc setcfact {+0.05,-0.05,0}
+
+super + {t,f,m,c}
+	dwmc setlayout {0,1,2,3}
+
+super + {comma, period} 
+	dwmc focusmon {-1,+1}
+
+super + shift + {comma, period} 
+	dwmc tagmon {-1,+1}
+
+alt + shift + {comma, period}
+	dmwc tagallmon {+1,-1}
+
+ctrl + alt + {comma, period}
+	dwmc tagswapmon {+1, -1}
+
+ctrl + alt + {F1-F9}
+	dwmc tagall {1-9}
+
+super + ctrl + {r, d}
+	dwmc {reorganizetags, distributetags}
+
+super + grave
+	dwmc view
+
+super + {_, shift +} Tab
+	dwmc shiftview {-1, +1}
+
+#####################
+#### T O G G L E ####
+#####################
+super + b
+	dwmc togglebar
+
+super + space
+	dwmc togglefloating
+
+super + f
+	dwmc togglefullscreen
+
+###############################
+#### S C R A T C H P A D S ####
+###############################
+super + minus
+	dwmc scratchpad_hide
+
+super + shift + minus
+	dwmc scratchpad_show
+
+super + equal
+	dwmc scratchpad_remove
+
+
+

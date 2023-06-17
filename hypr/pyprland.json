@@ -1,0 +1,19 @@
+{
+  "pyprland": {
+    "plugins": [
+      "scratchpads",
+      "expose",
+      "lost_windows"
+    ]
+  },
+  "scratchpads": {
+    "term": {
+      "command": "kitty --class kitty-dropterm",
+      "animation": "fromBottom",
+      "unfocus": "hide"
+    }
+  },
+  "expose": {
+    "include_special": true
+  }
+}

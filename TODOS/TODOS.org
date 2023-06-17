@@ -1,0 +1,17 @@
+* TODO Post-install configuration
+
+Smaller extensions to install
+Plans for custom arch iso:
+1. AshOS for immutability
+2. btrfs snapshots for rolling back 
+3. rebuild all packages with lto
+4. apparmor for MAC
+5. separate swap partition
+6. clear linux patches in linux-hardened
+   1. 
+7. 
+
+
+
+   
+   

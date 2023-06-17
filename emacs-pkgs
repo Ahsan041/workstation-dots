@@ -1,0 +1,10 @@
+#!bin/sh
+
+emacs-use-package
+emacs-no-littering
+emacs-evil #update package
+emacs-evil-collection
+emacs-undo-tree
+emacs-which-key
+emacs-general
+emacs-doom-themes

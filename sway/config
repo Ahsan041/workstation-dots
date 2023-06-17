@@ -1,0 +1,178 @@
+# Set Variables
+set $lm HDMI-A-1
+set $cm HDMI-A-2
+set $rm HDMI-A-3
+set $mod Mod4
+set $alt Mod1
+
+font pango:JetBrainsMono Nerd Font 12
+
+# set the mod key to the winkey:
+#####################
+# workspace layout: #
+#####################
+
+# default i3 tiling mode:
+workspace_layout default
+
+####################
+####### RULES ######
+####################
+#border indicator on windows:
+default_border pixel 2
+
+# Set inner/outer gaps
+gaps inner 7
+gaps outer 0
+gaps bottom 30
+
+
+# -- Terminal --
+bindsym $mod+Return 			exec swayterm
+bindsym $mod+Shift+Return 		exec swayterm -f
+bindsym $mod+$alt+Return 		exec swayterm -s
+bindsym $mod+t 					exec swayterm -F
+
+
+bindsym $mod+d	 				exec swaymenu
+
+bindsym XF86AudioRaiseVolume 	exec "swayvolume --inc"
+bindsym XF86AudioLowerVolume 	exec "swayvolume --dec"
+bindsym XF86AudioMute 			exec "swayvolume --toggle"
+
+
+# kill focused window
+bindsym $mod+q kill
+
+# reload the configuration file
+bindsym $mod+Shift+c reload
+
+# quit sway session
+bindsym $mod+Shift+q exit
+
+
+
+# Use Mouse+$mod to drag floating windows to their wanted position
+floating_modifier $mod
+
+
+######################################
+# keybindings for different actions: #
+######################################
+
+# split in horizontal orientation
+bindsym $mod+h split h
+
+# split in vertical orientation
+bindsym $mod+v split v
+
+
+# change container layout (stacked, tabbed, toggle split)
+bindsym $mod+s layout stacking
+bindsym $mod+g layout tabbed
+bindsym $mod+e layout toggle split
+
+
+# focus the parent container
+bindsym $mod+a focus parent
+
+# open new empty workspace
+bindsym $mod+Shift+n exec ~/.config/i3/scripts/empty_workspace
+
+
+##########################################
+# configuration for workspace behaviour: #
+##########################################
+
+workspace 1 output $lm
+workspace 2 output $lm
+workspace 3 output $lm
+workspace 4 output $lm
+workspace 5 output $lm
+workspace 6 output $lm
+workspace 7 output $cm
+workspace 8 output $cm
+workspace 9 output $cm
+workspace 10 output $cm
+workspace 11 output $cm
+workspace 12 output $cm
+workspace 13 output $rm
+workspace 14 output $rm
+workspace 15 output $rm
+workspace 16 output $rm
+workspace 17 output $rm
+workspace 18 output $rm
+
+#Define WS Vars
+set $ws1 "1"
+set $ws2 "2"
+set $ws3 "3"
+set $ws4 "4"
+set $ws5 "5"
+set $ws6 "6"
+set $ws7 "7"
+set $ws8 "8"
+set $ws9 "9"
+set $ws10 "10"
+set $ws11 "11"
+set $ws12 "12"
+set $ws13 "13"
+set $ws14 "14"
+set $ws15 "15"
+set $ws16 "16"
+set $ws17 "17"
+set $ws18 "18"
+
+
+# automatic set focus new window if it opens on another workspace than the current:
+for_window [class=st] focus
+for_window [class=(?i)firefox] focus
+for_window [class=Thunar] focus
+for_window [class=Thunderbird] focus
+for_window [class=TelegramDesktop] focus
+
+
+##################
+# floating rules #
+##################
+
+# set floating (nontiling) for apps needing it
+for_window [class="Yad" instance="yad"] floating enable
+for_window [class="Galculator" instance="galculator"] floating enable
+for_window [class="Blueberry.py" instance="blueberry.py"] floating enable
+
+# set floating (nontiling) for special apps
+for_window [class="Xsane" instance="xsane"] floating enable
+for_window [class="Pavucontrol" instance="pavucontrol"] floating enable
+for_window [class="qt5ct" instance="qt5ct"] floating enable
+for_window [class="Blueberry.py" instance="blueberry.py"] floating enable
+for_window [class="Bluetooth-sendto" instance="bluetooth-sendto"] floating enable
+for_window [class="Pamac-manager"] floating enable
+for_window [window_role="About"] floating enable
+for_window [class="st" instance="floating"] floating enable border pixel 3
+
+
+
+###############
+#### THEME ####
+###############
+
+# Define colors variables:
+set $mauve	  #E0B0FF
+set $white    #f8f8f2
+set $darkblue #282a36
+set $grey     #808080
+
+#class		        	    border		  bground		  text		indicator	child_border
+client.focused		    	$mauve	    $mauve  	  $white	$mauve  	$mauve
+client.unfocused	    	$darkblue	  $darkblue	  $grey		$darkblue	$darkblue
+client.focused_inactive $darkblue	  $darkblue	  $grey		$darkblue	$darkblue	
+client.urgent		    	  $mauve	    $mauve  	  $white	$mauve  	$mauve 
+
+
+
+#####################
+##### AUTOSTART #####
+#####################
+exec_always --no-startup-id swaystart
+
