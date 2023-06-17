@@ -80,7 +80,7 @@
 /* Show layout symbol in bar */
 #define BAR_LTSYMBOL_PATCH 1
 
-/* Adds powerline arrows for the status.
+/* Adds powerine arrows for the status.
  * This uses statuscolors logic for choosing colors for the powerline. As these
  * markers are also control characters there is no explicit statuscmd support
  * for this patch.
@@ -137,7 +137,7 @@
 #define BAR_TAGPREVIEW_PATCH 1
 
 /* Show status in bar */
-#define BAR_STATUS_PATCH 0
+#define BAR_STATUS_PATCH 1
 
 /* This patch adds a clickable button to the left hand side of the statusbar.
  * https://dwm.suckless.org/patches/statusbutton/
@@ -739,7 +739,7 @@
 /* This patch adds a keybinding to kills all visible clients that are not
  * selected. https://dwm.suckless.org/patches/killunsel/
  */
-#define KILLUNSEL_PATCH 0
+#define KILLUNSEL_PATCH 1
 
 /* This changes the window manager name to LG3d instead of dwm as a workaround
  * for Java applications that assume that the window manager is using window
@@ -1014,11 +1014,11 @@
  * https://lists.suckless.org/hackers/2004/17205.html
  * https://dwm.suckless.org/patches/scratchpads/
  */
-#define SCRATCHPADS_PATCH 0
+#define SCRATCHPADS_PATCH 1
 
 /* Minor alteration of the above allowing clients to keep their size and
  * position when shown */
-#define SCRATCHPADS_KEEP_POSITION_AND_SIZE_PATCH 0
+#define SCRATCHPADS_KEEP_POSITION_AND_SIZE_PATCH 1
 
 /* This alternative patch enables a scratchpad feature in dwm similar to the
  * scratchpad feature in i3wm. https://github.com/GasparVardanyan/dwm-scratchpad
@@ -1352,7 +1352,7 @@
  * used as a fullscreen mode, hence this is enabled separately from the main
  * vanitygaps patch.
  */
-#define VANITYGAPS_MONOCLE_PATCH 1
+#define VANITYGAPS_MONOCLE_PATCH 0
 
 /* By default MOD+Tab will take the user back to the previous tag only. If the
  * user keeps using MOD+Tab then the view will switch back and forth between the
@@ -1433,7 +1433,7 @@
 /* Centered master layout.
  * https://dwm.suckless.org/patches/centeredmaster/
  */
-#define CENTEREDMASTER_LAYOUT 1
+#define CENTEREDMASTER_LAYOUT 0
 
 /* Centered floating master layout.
  * https://dwm.suckless.org/patches/centeredmaster/
@@ -1444,7 +1444,7 @@
  * arranged in columns (i.e. left to right).
  * https://dwm.suckless.org/patches/columns/
  */
-#define COLUMNS_LAYOUT 1
+#define COLUMNS_LAYOUT 0
 
 /* Deck layout.
  * https://dwm.suckless.org/patches/deck/
@@ -1454,7 +1454,7 @@
 /* Fibonacci dwindle layout.
  * https://dwm.suckless.org/patches/fibonacci/
  */
-#define FIBONACCI_DWINDLE_LAYOUT 1
+#define FIBONACCI_DWINDLE_LAYOUT 0
 
 /* Fibonacci spiral layout.
  * https://dwm.suckless.org/patches/fibonacci/
@@ -1465,7 +1465,7 @@
  * A revamped, more flexible, and over-the-top version of the original flextile
  * layout. https://dwm.suckless.org/patches/flextile/ (original)
  */
-#define FLEXTILE_DELUXE_LAYOUT 0
+#define FLEXTILE_DELUXE_LAYOUT 1
 
 /* Gappless grid layout.
  * https://dwm.suckless.org/patches/gaplessgrid/
@@ -1485,14 +1485,14 @@
 /* Grid layout where nmaster controls the number of rows.
  * https://dwm.suckless.org/patches/nrowgrid/
  */
-#define NROWGRID_LAYOUT 1
+#define NROWGRID_LAYOUT 0
 
 /* The default tile layout.
  * This can be optionally disabled in favour of other layouts.
  */
-#define TILE_LAYOUT 1
+#define TILE_LAYOUT 0
 
 /* Monocle layout (default).
  * This can be optionally disabled in favour of other layouts.
  */
-#define MONOCLE_LAYOUT 1
+#define MONOCLE_LAYOUT 0

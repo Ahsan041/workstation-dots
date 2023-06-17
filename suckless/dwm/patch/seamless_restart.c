@@ -41,6 +41,7 @@ void setmonitorfields(Monitor *m)
 {
 	char atom[22] = {0};
 	Atom monitor_fields;
+	unsigned int flextile_deluxe_bitmask;
 
 	sprintf(atom, "_DWM_MONITOR_FIELDS_%u", m->num);
 	monitor_fields = XInternAtom(dpy, atom, False);
@@ -60,7 +61,17 @@ void setmonitorfields(Monitor *m)
 	 * | |-- reserved
 	 * |-- showbar
 	 */
+	flextile_deluxe_bitmask = (m->nstack & 0x7) << 3;
+	if (m->lt[m->sellt]->arrange == flextile) {
+		flextile_deluxe_bitmask |=
+			(abs(m->ltaxis[LAYOUT]) & 0xF) << 10 |
+			(m->ltaxis[MASTER] & 0xF) << 14 |
+			(m->ltaxis[STACK]  & 0xF) << 18 |
+			(m->ltaxis[STACK2] & 0xF) << 22 |
+			(m->ltaxis[LAYOUT] < 0 ? 1 : 0) << 24;
+	}
 	uint32_t data[] = {
+		flextile_deluxe_bitmask |
 		(m->nmaster & 0x7) |
 		(getlayoutindex(m->lt[m->sellt]) & 0xF) << 6 |
 		m->showbar << 31
@@ -105,9 +116,16 @@ getmonitorfields(Monitor *m)
 
 		/* See bit layout in the persistmonitorstate function */
 		m->nmaster = state & 0x7;
+		m->nstack = (state >> 3) & 0x7;
 		layout_index = (state >> 6) & 0xF;
 		if (layout_index < LENGTH(layouts))
 			m->lt[m->sellt] = &layouts[layout_index];
+		if (m->lt[m->sellt]->arrange == flextile) {
+			m->ltaxis[LAYOUT] = (state >> 10) & 0xF;
+			m->ltaxis[MASTER] = (state >> 14) & 0xF;
+			m->ltaxis[STACK]  = (state >> 18) & 0xF;
+			m->ltaxis[STACK2] = (state >> 22) & 0xF;
+		}
 		m->showbar = (state >> 31) & 0x1;
 	}
 
