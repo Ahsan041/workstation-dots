@@ -9,16 +9,19 @@ alias zsh-update="find "$ZDOTDIR/plugins" -type d -exec test -e '{}/.git' ';' -p
 alias f='zi'
 
 # Pacman-related alias
-alias pac-sync='sudo pacman -Sy archlinux-keyring'
-alias pac-update='sudo pacman -Syyuu'
-alias pac-install='sudo pacman -Sy'
-alias pac-remove='sudo pacman -R'
-alias pac-search='sudo emerge -Ss'
-alias pac-clean='sudo pacman -Rns'
+alias em-sync='sudo emerge --sync'
+alias em-update='sudo emerge -auvDN @world'
+alias em-install='sudo emerge -av --jobs=5'
+alias em-remove='sudo emerge --depclean'
+alias em-search='sudo emerge -Ss'
+alias em-clean='sudo eclean-dist --deep && sudo emerge --depclean'
 alias pac-cleanup='sudo pacman -Qtdq | sudo pacman -Rns -'
 alias pac-up-key='sudo pacman-key --init && sudo pacman-key --populate && sudo pacman -Sy archlinux-keyring'
 alias pac-add-key='gpg --keyserver keyserver.ubuntu.com --recv'
 alias pac-sha='sha256sum'
+alias keywords='sudo lvim /etc/portage/package.accept_keywords'
+alias use='sudo lvim /etc/portage/package.use'
+alias conf='sudo lvim /etc/portage/make.conf'
 
 # scripts-related aliases
 alias hyprbar='sudo lvim /usr/local/bin/hyprbar'

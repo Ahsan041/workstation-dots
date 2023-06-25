@@ -26,11 +26,9 @@ LIBS = -L$(X11LIB) -lm -lrt -lX11 -lutil -lXft -lgd \
        `$(PKG_CONFIG) --libs freetype2` \
        `$(PKG_CONFIG) --libs harfbuzz`
 
-STHFLAGS = -march=native -O3 -pipe -fstack-protector-strong -D_FORTIFY_SOURCE=3 -fstack-clash-protection -fcf-protection=full
-
 # flags
-STCPPFLAGS = -DVERSION=\"$(VERSION)\" -DICON=\"$(ICONPREFIX)/$(ICONNAME)\" -D_XOPEN_SOURCE=600 -D_GLIBCXX_ASSERTIONS
-STCFLAGS = $(STHFLAGS) $(INCS) $(STCPPFLAGS) $(CPPFLAGS) $(CFLAGS)
+STCPPFLAGS = -DVERSION=\"$(VERSION)\" -DICON=\"$(ICONPREFIX)/$(ICONNAME)\" -D_XOPEN_SOURCE=600
+STCFLAGS = $(INCS) $(STCPPFLAGS) $(CPPFLAGS) $(CFLAGS)
 STLDFLAGS = $(LIBS) $(LDFLAGS)
 
 # OpenBSD:

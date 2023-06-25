@@ -1,68 +1,71 @@
+# vim:ft=dosini
+
 [global]
-monitor = 0
-follow = mouse
-width = 300
-height = 80
-origin = top-right
-offset = 14x52
-corner_radius = 0
-scale = 0
-notification_limit = 0
-progress_bar = true
-progress_bar_height = 80
-progress_bar_frame_width = 1
-progress_bar_min_width = 300
-progress_bar_max_width = 300
-indicate_hidden = yes
+width = (100, 350)
+height = 150
+origin = "top-left"
+offset = "20x20"
+notification_limit = 3
 transparency = 0
-separator_height = 4
-padding = 15
-horizontal_padding = 15
-text_icon_padding = 0
-frame_width = 2
-gap_size = 0
-separator_color = frame
-sort = yes
-idle_threshold = 120
-font = Iosevka Custom 9
-line_height = 4
-markup = full
-format = %s\n%b
-alignment = left
-vertical_alignment = center
-show_age_threshold = 60
-ellipsize = middle
-ignore_newline = no
-stack_duplicates = true
-hide_duplicate_count = false
-show_indicators = yes
+padding = 10
+horizontal_padding = 10
+frame_width = 4
+frame_color = "#0f0f0f"
+corner_radius = 10
+separator_color = "#4c4c4c"
+
+font = "Roboto 11"
+format = "<span size='110%' font_desc='Roboto' weight='500' foreground='#c49ec4'>%s</span>\n%b"
+
+icon_theme = "Papirus-Dark"
 enable_recursive_icon_lookup = true
 icon_position = left
-min_icon_size = 24
-max_icon_size = 48
-sticky_history = yes
-history_length = 20
-browser = /usr/bin/xdg-open
-always_run_script = true
-mouse_left_click = close_current
-mouse_middle_click = do_action, close_current
-mouse_right_click = close_all
-title = Dunst
-class = Dunst
+min_icon_size = 32
+max_icon_size = 96
 
-[global]
-frame_color = "#89B4FA"
-separator_color= frame
+progress_bar_height = 5
+progress_bar_min_width = 0
+progress_bar_max_width = 300
+progress_bar_frame_width = 0
+
+ignore_newline = false
+alignment = center
+show_indicators = true
+history_length = 50
+idle_threshold = 120
+show_age_threshold = 60
+sticky_history = true
+browser = xdg-open
+
+mouse_left_click = close_current
+mouse_middle_click = context_all
+mouse_right_click = close_all
 
 [urgency_low]
-background = "#1E1E2E"
-foreground = "#CDD6F4"
+timeout = 5
+background = "#0f0f0f"
+foreground = "#e7e7e7"
+highlight = "#c49ec4"
 
 [urgency_normal]
-background = "#1E1E2E"
-foreground = "#CDD6F4"
+timeout = 10
+background = "#0f0f0f"
+foreground = "#e7e7e7"
+highlight = "#c49ec4"
 
 [urgency_critical]
-background = "#1E1E2E"
-foreground = "#CDD6F4"
-frame_color = "#FAB387"
+timeout = 0
+background = "#0f0f0f"
+foreground = "#e7e7e7"
+highlight = "#c49ec4"
+
+[logger]
+script = ~/.config/eww/scripts/logger.zsh
+
+[volume]
+appname = "Volume"
+history_ignore = true
+
+[spotify]
+appname = "Spotify"
+script = ~/.config/dunst/scripts/cover

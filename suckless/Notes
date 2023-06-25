@@ -1,68 +1,13 @@
-Exresize: This patch allows the user to change size and placement of floating windows using only the keyboard. It also allowes for temporary vertical and horizontal extension of windows similar to other WMs fill command
+packages to install:
+imlib2
 
-Shiftview: This patch adds keybindings for left and right circular shift through tags
+config.mk
+lXrender lXest
 
-## Patches Added
-1. BAR_DWMBLOCKS_PATCH
-2. BAR_TAGPREVIEW_PATCH
-3. BAR_STATUSBUTTON_PATCH
-4. BAR_STATUSCMD_PATCH
-5. BAR_STATUS2D_PATCH 
-6. BAR_SYSTRAY_PATCH
-7. BAR_UNDERLINETAGS_PATCH
-8. BAR_WINICON_PATCH
-9. BAR_WINTITLE_PATCH
-10.BAR_TITLE_RIGHT_PAD_PATCH
-11.BAR_TITLE_LEFT_PAD_PATCH
-12.BAR_ALPHA_PATCH
-13.BAR_HEIGHT_PATCH
-14.BAR_PADDING_VANITYGAPS_PATCH
-15.ATTACHASIDE_PATCH
-16.CENTER_PATCH
-17.CFACTS_PATCH
-20.DISTRIBUTETAGS_PATCH
-21.DRAGCFACT_PATCH
-22.DRAGMFACT_PATCH
-23.DWMC_PATCH
-24.EMPTYVIEW_PATCH
-25.FOCUSDIR_PATCH
-26.LG3D_PATCH
-27.MONITOR_RULES_PATCH
-28.MOVEPLACE_PATCH
-29.MOVESTACK_PATCH
-30.NODMENU_PATCH
-31.REORGANIZETAGS_PATCH
-32.RESIZEPOINT_PATCH
-33.RESTARTSIG_PATCH
-34.ROTATESTACK_PATCH
-35.ROUNDED_CORNERS_PATCH
-36.SAVEFLOATS_PATCH
-37.SCRATCHPAD_ALT_1_PATCH
-38.SEAMLESS_RESTART_PATCH
-39.SHIFTVIEW_PATCH
-40.TAGALL_PATCH
-41.TAGALLMON_PATCH
-42.TAGSWAPMON_PATCH
-43.TOGGLEFULLSCREEN_PATCH
-44.TOGGLELAYOUT_PATCH
-45.TOGGLETAG_PATCH
-46.VANITYGAPS_PATCH
-47.VANITYGAPS_MONOCLE_PATCH
-48.VIEWONTAG_PATCH
-49.WARP_PATCH
-50.CENTEREDMASTER_LAYOUT
-51.COLUMNS_LAYOUT
-52.FIBONACCI_DWINDLE_LAYOUT
-53.NROWGRID_LAYOUT
-54.TILE_LAYOUT
-55.MONOCLE_LAYOUT
-
-External Patches
-hide and restore patch
-2. colorful tags
-multiple dynamic scratchpads 
-preserve on restart
-
-./flexipatch-finalizer.sh -r -d /home/ahsan/.config/suckless/dwm-flexipatch -o /home/ahsan/.config/suckless/dwm
-
-
+dwmc patch
+/* Simple dwmc client using a fork of fsignal to communicate with dwm.
+ * To use this either copy the patch/dwmc shell script to somewhere in your path or
+ * uncomment the following line in Makefile:
+ *    #cp -f patch/dwmc ${DESTDIR}${PREFIX}/bin
+ * http://dwm.suckless.org/patches/dwmc/
+ */
