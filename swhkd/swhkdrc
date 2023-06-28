@@ -5,14 +5,16 @@ super + Return
 super + shift + Return
   pypr toggle term 
 
-#-- Launch menu -----------------------
+#-- Launcher -----------------------
 super + d
   hyprmenu
 
+super + alt + d
+  launcher
 
 #-- Launch Applications ---------------
 super + shift + w
-  brave-browser 
+  firefox 
 
 super + shift + n
   kitty -e lvim
@@ -48,11 +50,6 @@ super + shift + {Left,Right,Up,Down}
 super + ctrl + {Left,Right,Up,Down}
   hyprctl dispatch resizeactive { -45 0, 45 0, 0 -45, 0 45 }
 
-# Minimize
-super + n
-  pypr toggle_minimized
-
-# Expose
 
 #-- Screenshots ------------------------
 Print
@@ -61,9 +58,11 @@ Print
 super + Print 
   hyprshot -m region
 
-#-- Notification Center ---------------
-ctrl + alt + n 
-  swaync-client -t
+
+#-- Misc ------------------------------
+
+ctrl + atl + e
+  eww open --toggle powermenu
 
 #-- Volume control --------------------
 XF86Audio{RaiseVolume,LowerVolume}

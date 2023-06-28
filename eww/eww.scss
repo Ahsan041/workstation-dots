@@ -19,12 +19,14 @@ $white: $fg;
 
 tooltip {
 	background-color: $bg;
-	font-family: "SF Mono";
+	font-family: "FiraCode Nerd Font";
 	font-weight: 500;
 	font-size: .9rem;
 }
 
+@import "scss/bar.scss";
 @import "scss/notifications.scss";
+@import "scss/menu.scss";
 @import "scss/volume.scss";
+@import "scss/player.scss";
 @import "scss/powermenu.scss";
-@import "scss/calendar.scss";

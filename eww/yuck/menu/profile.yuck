@@ -1,0 +1,48 @@
+(defwidget profile []
+	(box 
+		:class "profile-box" 
+		:space-evenly false 
+    :spacing 10
+    (box 
+      :class "profile-img" 
+      :halign "center"
+      :valign "center"
+      :style "background-image: url('${profile-image}');"
+    )
+    (box
+      :orientation "v"
+      :hexpand true
+      (box 
+        :class "profile-info" 
+        :space-evenly false 
+        :orientation "v" 
+        :spacing 5
+        (label 
+          :class "profile-name" 
+          :text profile-name 
+          :halign "start"
+        )
+        (box
+          :space-evenly false
+          :spacing 5
+          (label :text "󰣨")
+          (label 
+            :class "profile-infos" 
+            :text uptime 
+            :halign "start"
+          )
+        )
+      )
+    )
+    (eventbox
+      :cursor "pointer"
+      (button 
+        :class "exit"
+        :halign "center"
+        :valign "center" 
+        :onclick "eww open --toggle powermenu" 
+        "󰍃"
+      )
+    )
+	)
+)

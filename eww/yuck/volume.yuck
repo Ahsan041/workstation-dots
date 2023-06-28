@@ -14,18 +14,12 @@
       (label
         :class "volume-popup-icon"
         :halign "start"
-        :text {volume-percent == 0 || volume-percent == "muted" ? "" : 
+        :text {volume-percent == 0 || volume-percent == "muted" ? "󰝟" : 
         volume-percent < 30 ? "" : 
-        volume-percent < 75 ? "" : ""} 
+        volume-percent < 75 ? "󰕾" : ""} 
         :style {volume-percent == "muted" || volume-percent == 0 ? "color: #dd6777;" : 
         volume-percent < 12 ? "color: #cacaca;" : "color: #191919;"}
       )
     )
   )
-)
-
-(defwindow volume
-	:wm-ignore false
-	:geometry (geometry :y "1%" :width "10%" :anchor "top center")
-  (volume-popup)
 )

@@ -1,20 +1,43 @@
-(defwidget dnd [icon color action waiting count]
-  (eventbox
-    :class "notifications-dnd"
-    :halign "start"
-    :cursor "pointer"
-    (box
-      (button 
-        :onclick action
-        :style "color: ${color}"
-        icon
+(defwidget header []
+  (box 
+    :class "header"
+    :space-evenly false
+    (overlay
+      :hexpand true
+      (box
+        :class "dnd"
+        :space-evenly false
+        :halign "start"
+        (eventbox
+          :cursor "pointer"
+          (button 
+            :onclick "dunstctl set-paused toggle"
+            :style "color: ${notifications-dnd ? '#dd6777;' : '#ceb188;'}"
+            {notifications-dnd ? "" : ""}
+          )
+        )
+        (revealer 
+          :reveal {dunst-waiting == "0" ? false : true}
+          :transition "slideright"
+          (label
+            :class "dnd count"
+            :text dunst-waiting
+          )
+        )
       )
+      (label :class "label" :text "Notifications")
       (revealer 
-        :reveal waiting
+        :reveal {dunst-count == "0" ? false : true}
         :transition "fade"
-        (label
-          :class "notifications-dnd-count"
-          :text count
+        :halign "end"
+        :hexpand true
+        (eventbox
+          :cursor "pointer"
+          (button 
+            :class "clear"
+            :onclick "$HOME/.config/zsh/logger.zsh clear" 
+            ""
+          )
         )
       )
     )
@@ -23,58 +46,25 @@
 
 (defwidget notifications []
   (box 
-    :class "notifications-box" 
+    :class "notifications" 
     :space-evenly false 
     :orientation "v"
-    (box 
-      :class "notifications-header"
-      :spacing 10
-      (dnd
-        :action "dunstctl set-paused toggle"
-        :icon {notifications-dnd ? "" : ""}
-        :color {notifications-dnd ? "#dd6777;" : "#ceb188;"}
-        :waiting {dunst-waiting == "0" ? false : true}
-        :count dunst-waiting
-      )
-      (label 
-        :class "notifications-header-label" 
-        :text "Notifications"  
-      )
-      (revealer 
-        :reveal {dunst-count == "0" ? false : true}
-        :transition "fade"
-        :halign "end"
-        (box
-          :class "clear-box"
-          :space-evenly false
-          :spacing 20
-          (eventbox
-            :cursor "pointer"
-            (button 
-              :class "notifications-header-clear" 
-              :halign "end"
-              :onclick "scripts/logger.zsh clear" 
-              ""
-            )
-          )
-        )
-      )
-    )
+    (header)
     (literal :content notifications)
   )
 )
 
-(defwidget notification-card [app time id image image_width image_height summary body pop ?screenshot]
+(defwidget notification-card [app time id image image_width image_height summary body ?screenshot ?tt]
   (eventbox 
-    :class "notification-eventbox"
+    :class "notification"
     (box 
       :space-evenly false 
       :orientation "v"
       (box 
-        :class "notification-header-box"
+        :class "osd"
         (label
-          :class "notification-app-name" 
-          :text "${app}" 
+          :class "app" 
+          :text app 
           :halign "start"
         )
         (box
@@ -82,15 +72,15 @@
           :halign "end"
           :spacing 15
           (label
-            :class "notification-time"
+            :class "time"
             :halign "end"
             :text time
           )
           (eventbox
             :cursor "pointer"
             (button 
-              :class "notification-close" 
-              :onclick "scripts/logger.zsh rm_id ${id}"
+              :class "close" 
+              :onclick "$HOME/.config/zsh/logger.zsh rm_id ${tt}"
               :halign "end"
               "" 
             )
@@ -98,42 +88,33 @@
         )
       )
       (box  
-        :class "notification-content"
+        :class "content"
         :orientation {screenshot ? "v" : "h"}
         :space-evenly false 
         :spacing 10
-        (label 
-          :class "screenshot-name" 
-          :visible screenshot 
-          :text image
-          :limit-width 50
-        )
         (button
-          :class "notification-image"
+          :class "image"
           :style "background-image: url('${image}');"
           :halign "center"
           :valign "center"
           :width image_width
           :height image_height
-          :onclick pop
+          :onclick "dunstctl history-pop ${id}"
         )
         (box
-          :class "notification-card"
           :visible {screenshot ? false : true}
-          :orientation "vertical"
+          :orientation "v"
           :space-evenly false
-          :hexpand true
           (label 
-            :class "notification-summary"
+            :class "summary"
             :limit-width 30
             :wrap true
             :xalign 0
             :text summary
             :halign "start"
-            :hexpand true
           )
           (label
-            :class "notification-body"
+            :class "body"
             :limit-width 80
             :wrap true
             :xalign 0
@@ -142,13 +123,13 @@
           )
         )
         (box
-          :class "screenshot-buttons-box"
+          :class "screenshot buttons"
           :visible screenshot
           :spacing 40
           (eventbox
             :cursor "pointer"
             (button
-              :class "screenshot-open"
+              :class "open"
               :onclick "viewnior '${image}' &"
               :timeout "1s"
               "Open"
@@ -157,8 +138,8 @@
           (eventbox
             :cursor "pointer"
             (button
-              :class "screenshot-delete"
-              :onclick "rm -f '${image}' && scripts/logger.zsh rm_id ${id}"
+              :class "delete"
+              :onclick "rm -f '${image}' && $HOME/.config/zsh/logger.zsh rm_id ${tt}"
               :timeout "1s"
               "Delete"
             )
@@ -167,10 +148,4 @@
       )
     )
   )
-)
-
-(defwindow notifications
-  :wm-ignore false
-  :geometry (geometry :width "25%" :x "1%" :y "-6%" :anchor "bottom right")
-  (notifications)
 )
