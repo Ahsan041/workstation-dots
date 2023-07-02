@@ -85,8 +85,16 @@ static char *colors[][ColCount] = {
 };
 
 
+const char *spcmd1[] = {"st", "-n", "spterm", "-g", "120x34", NULL };
+const char *spcmd2[] = {"st", "-n", "spranger", "-g", "144x41", "-e", "ranger", NULL };
+const char *spcmd3[] = {"st", "-n", "splvim", "-g", "144x41", "-e", "lvim", NULL };
 
-
+static Sp scratchpads[] = {
+  /* name          cmd  */
+  {"spterm",      spcmd1},
+  {"spranger",    spcmd2},
+  {"splvim",      spcmd3}
+};
 
 /* Tags
  * In a traditional dwm the number of tags in use can be changed simply by changing the number
@@ -154,8 +162,17 @@ static const Rule rules[] = {
 	RULE(.wintype = WTYPE "SPLASH", .isfloating = 1)
 	RULE(.class = "Gimp", .tags = 1 << 4)
 	RULE(.class = "Firefox", .tags = 1 << 7)
+	RULE(.instance = "spterm", .tags = SPTAG(0), .isfloating = 1)
+  RULE(.instance = "spranger", .tags = SPTAG(1), .isfloating = 1)
+  RULE(.instance = "splvim", .tags = SPTAG(2), .isfloating = 1)
 };
 
+
+static const MonitorRule monrules[] = {
+	/* monitor  layout  mfact  nmaster  showbar  topbar */
+	{  1,       2,      -1,    -1,      -1,      -1     }, // use a different layout for the second monitor
+	{  -1,      0,      -1,    -1,      -1,      -1     }, // default
+};
 
 static const Inset default_inset = {
 	.x = 0,
@@ -187,15 +204,24 @@ static const int nmaster     = 1;    /* number of clients in master area */
 static const int resizehints = 0;    /* 1 means respect size hints in tiled resizals */
 static const int lockfullscreen = 1; /* 1 will force focus on the fullscreen window */
 
+#define FORCE_VSPLIT 1
 
 
 static const Layout layouts[] = {
 	/* symbol     arrange function */
 	{ "[]=",      tile },    /* first entry is default */
 	{ "><>",      NULL },    /* no layout function means floating behavior */
-	{ "[M]",      monocle },
+	{ "TTT",      bstack },
+	{ "===",      bstackhoriz },
 	{ "|M|",      centeredmaster },
+	{ "|||",      col },
+	{ "[D]",      deck },
 	{ "(@)",      spiral },
+	{ "[\\]",     dwindle },
+	{ "HHH",      grid },
+	{ "---",      horizgrid },
+	{ ":::",      gaplessgrid },
+	{ "###",      nrowgrid },
 };
 
 
@@ -228,7 +254,6 @@ static const char *termcmd[]  = { "st", NULL };
 
 static const Key keys[] = {
 	/* modifier                     key            function                argument */
-	{ MODKEY,                       XK_Escape,     setkeymode,             {.ui = COMMANDMODE} },
 	{ MODKEY,                       XK_p,          spawn,                  {.v = dmenucmd } },
 	{ MODKEY|ShiftMask,             XK_Return,     spawn,                  {.v = termcmd } },
 	{ MODKEY,                       XK_b,          togglebar,              {0} },
@@ -266,15 +291,20 @@ static const Key keys[] = {
 	{ MODKEY|Mod4Mask,              XK_0,          togglegaps,             {0} },
 	{ MODKEY|Mod4Mask|ShiftMask,    XK_0,          defaultgaps,            {0} },
 	{ MODKEY,                       XK_Tab,        view,                   {0} },
-	{ MODKEY|ShiftMask,             XK_Tab,        shiftview,              { .i = -1 } },
-	{ MODKEY|ShiftMask,             XK_backslash,  shiftview,              { .i = +1 } },
+	{ MODKEY|Mod4Mask,              XK_Tab,        shiftviewclients,       { .i = -1 } },
+	{ MODKEY|Mod4Mask,              XK_backslash,  shiftviewclients,       { .i = +1 } },
 	{ MODKEY|ShiftMask,             XK_c,          killclient,             {0} },
 	{ MODKEY|ShiftMask,             XK_q,          quit,                   {0} },
+	{ MODKEY|ControlMask|ShiftMask, XK_q,          quit,                   {1} },
 	{ MODKEY,                       XK_t,          setlayout,              {.v = &layouts[0]} },
 	{ MODKEY,                       XK_f,          setlayout,              {.v = &layouts[1]} },
 	{ MODKEY,                       XK_m,          setlayout,              {.v = &layouts[2]} },
+	{ MODKEY,                       XK_c,          setlayout,              {.v = &layouts[3]} },
 	{ MODKEY,                       XK_space,      setlayout,              {0} },
 	{ MODKEY|ShiftMask,             XK_space,      togglefloating,         {0} },
+	{ MODKEY,                       XK_grave,      togglescratch,          {.ui = 0 } },
+	{ MODKEY|ControlMask,           XK_grave,      setscratch,             {.ui = 0 } },
+	{ MODKEY|ShiftMask,             XK_grave,      removescratch,          {.ui = 0 } },
 	{ MODKEY,                       XK_y,          togglefullscreen,       {0} },
 	{ MODKEY,                       XK_minus,      scratchpad_show,        {0} },
 	{ MODKEY|ShiftMask,             XK_minus,      scratchpad_hide,        {0} },
@@ -283,6 +313,9 @@ static const Key keys[] = {
 	{ MODKEY,                       XK_period,     focusmon,               {.i = +1 } },
 	{ MODKEY|ShiftMask,             XK_comma,      tagmon,                 {.i = -1 } },
 	{ MODKEY|ShiftMask,             XK_period,     tagmon,                 {.i = +1 } },
+	{ MODKEY,            			XK_y,  	   togglescratch,  {.ui = 0 } },
+	{ MODKEY,            			XK_u,	   togglescratch,  {.ui = 1 } },
+	{ MODKEY,            			XK_x,	   togglescratch,  {.ui = 2 } },
 	TAGKEYS(                        XK_1,                                  0)
 	TAGKEYS(                        XK_2,                                  1)
 	TAGKEYS(                        XK_3,                                  2)
@@ -294,29 +327,6 @@ static const Key keys[] = {
 	TAGKEYS(                        XK_9,                                  8)
 };
 
-static const Key cmdkeys[] = {
-	/* modifier                    keys                     function         argument */
-	{ 0,                           XK_Escape,               clearcmd,        {0} },
-	{ ControlMask,                 XK_c,                    clearcmd,        {0} },
-	{ 0,                           XK_i,                    setkeymode,      {.ui = INSERTMODE} },
-};
-
-static const Command commands[] = {
-	/* modifier (4 keys)                          keysyms (4 keys)                                function         argument */
-	{ {ControlMask, ShiftMask,  0,         0},    {XK_w,      XK_h,     0,         0},            setlayout,       {.v = &layouts[0]} },
-	{ {ControlMask, 0,          0,         0},    {XK_w,      XK_o,     0,         0},            setlayout,       {.v = &layouts[2]} },
-	{ {ControlMask, ShiftMask,  0,         0},    {XK_w,      XK_o,     0,         0},            onlyclient,      {0} },
-	{ {ControlMask, 0,          0,         0},    {XK_w,      XK_v,     0,         0},            setlayout,       {.v = &layouts[0]} },
-	{ {ControlMask, 0,          0,         0},    {XK_w,      XK_less,  0,         0},            setmfact,        {.f = -0.05} },
-	{ {ControlMask, ShiftMask,  0,         0},    {XK_w,      XK_less,  0,         0},            setmfact,        {.f = +0.05} },
-	{ {ControlMask, ShiftMask,  0,         0},    {XK_w,      XK_0,     0,         0},            setmfact,        {.f = +1.50} },
-	{ {ShiftMask,   0,          0,         0},    {XK_period, XK_e,     0,         0},            spawn,           {.v = dmenucmd} },
-	{ {ShiftMask,   0,          0,         0},    {XK_period, XK_o,     0,         0},            spawn,           {.v = dmenucmd} },
-	{ {ShiftMask,   0,          0,         0},    {XK_period, XK_q,     XK_Return, 0},            quit,            {0} },
-	{ {ShiftMask,   0,          0,         0},    {XK_period, XK_b,     XK_d,      XK_Return},    killclient,      {0} },
-	{ {ShiftMask,   0,          0,         0},    {XK_period, XK_b,     XK_n,      XK_Return},    focusstack,      {.i = +1} },
-	{ {ShiftMask,   0,          ShiftMask, 0},    {XK_period, XK_b,     XK_n,      XK_Return},    focusstack,      {.i = -1} },
-};
 
 /* button definitions */
 /* click can be ClkTagBar, ClkLtSymbol, ClkStatusText, ClkWinTitle, ClkClientWin, or ClkRootWin */
@@ -328,7 +338,7 @@ static const Button buttons[] = {
 	{ ClkStatusText,        0,                   Button2,        spawn,          {.v = termcmd } },
 	{ ClkClientWin,         MODKEY,              Button1,        movemouse,      {0} },
 	{ ClkClientWin,         MODKEY,              Button2,        togglefloating, {0} },
-	{ ClkClientWin,         MODKEY,              Button3,        resizemouse,    {0} },
+	{ ClkClientWin,         MODKEY,              Button1,        resizemouse,    {0} },
 	{ ClkClientWin,         MODKEY|ShiftMask,    Button3,        dragcfact,      {0} },
 	{ ClkClientWin,         MODKEY|ShiftMask,    Button1,        dragmfact,      {0} },
 	{ ClkTagBar,            0,                   Button1,        view,           {0} },
@@ -337,40 +347,49 @@ static const Button buttons[] = {
 	{ ClkTagBar,            MODKEY,              Button3,        toggletag,      {0} },
 };
 
-
-static const char *ipcsockpath = "/tmp/dwm.sock";
-static IPCCommand ipccommands[] = {
-	IPCCOMMAND( focusmon, 1, {ARG_TYPE_SINT} ),
-	IPCCOMMAND( focusstack, 1, {ARG_TYPE_SINT} ),
-	IPCCOMMAND( incnmaster, 1, {ARG_TYPE_SINT} ),
-	IPCCOMMAND( killclient, 1, {ARG_TYPE_SINT} ),
-	IPCCOMMAND( quit, 1, {ARG_TYPE_NONE} ),
-	IPCCOMMAND( setlayoutsafe, 1, {ARG_TYPE_PTR} ),
-	IPCCOMMAND( setmfact, 1, {ARG_TYPE_FLOAT} ),
-	IPCCOMMAND( setstatus, 1, {ARG_TYPE_STR} ),
-	IPCCOMMAND( tag, 1, {ARG_TYPE_UINT} ),
-	IPCCOMMAND( tagmon, 1, {ARG_TYPE_UINT} ),
-	IPCCOMMAND( togglebar, 1, {ARG_TYPE_NONE} ),
-	IPCCOMMAND( togglefloating, 1, {ARG_TYPE_NONE} ),
-	IPCCOMMAND( toggletag, 1, {ARG_TYPE_UINT} ),
-	IPCCOMMAND( toggleview, 1, {ARG_TYPE_UINT} ),
-	IPCCOMMAND( view, 1, {ARG_TYPE_UINT} ),
-	IPCCOMMAND( zoom, 1, {ARG_TYPE_NONE} ),
-	IPCCOMMAND( setcfact, 1, {ARG_TYPE_FLOAT} ),
-	IPCCOMMAND( setkeymode, 1, {ARG_TYPE_UINT} ),
-	IPCCOMMAND( pushdown, 1, {ARG_TYPE_NONE} ),
-	IPCCOMMAND( pushup, 1, {ARG_TYPE_NONE} ),
-	IPCCOMMAND( shiftview, 1, {ARG_TYPE_SINT} ),
-	IPCCOMMAND( togglefullscreen, 1, {ARG_TYPE_NONE} ),
-	IPCCOMMAND( transfer, 1, {ARG_TYPE_NONE} ),
-	IPCCOMMAND( incrgaps, 1, {ARG_TYPE_SINT} ),
-	IPCCOMMAND( incrigaps, 1, {ARG_TYPE_SINT} ),
-	IPCCOMMAND( incrogaps, 1, {ARG_TYPE_SINT} ),
-	IPCCOMMAND( incrihgaps, 1, {ARG_TYPE_SINT} ),
-	IPCCOMMAND( incrivgaps, 1, {ARG_TYPE_SINT} ),
-	IPCCOMMAND( incrohgaps, 1, {ARG_TYPE_SINT} ),
-	IPCCOMMAND( incrovgaps, 1, {ARG_TYPE_SINT} ),
-	IPCCOMMAND( togglegaps, 1, {ARG_TYPE_NONE} ),
-	IPCCOMMAND( defaultgaps, 1, {ARG_TYPE_NONE} ),
-	IPCCOMMAND( setgapsex, 1, {ARG_TYPE_SINT} ),
+/* signal definitions */
+/* signum must be greater than 0 */
+/* trigger signals using `xsetroot -name "fsignal:<signame> [<type> <value>]"` */
+static const Signal signals[] = {
+	/* signum                    function */
+	{ "focusstack",              focusstack },
+	{ "setmfact",                setmfact },
+	{ "togglebar",               togglebar },
+	{ "incnmaster",              incnmaster },
+	{ "togglefloating",          togglefloating },
+	{ "focusmon",                focusmon },
+	{ "pushdown",                pushdown },
+	{ "pushup",                  pushup },
+	{ "setcfact",                setcfact },
+	{ "transfer",                transfer },
+	{ "tagmon",                  tagmon },
+	{ "zoom",                    zoom },
+	{ "incrgaps",                incrgaps },
+	{ "incrigaps",               incrigaps },
+	{ "incrogaps",               incrogaps },
+	{ "incrihgaps",              incrihgaps },
+	{ "incrivgaps",              incrivgaps },
+	{ "incrohgaps",              incrohgaps },
+	{ "incrovgaps",              incrovgaps },
+	{ "togglegaps",              togglegaps },
+	{ "defaultgaps",             defaultgaps },
+	{ "setgaps",                 setgapsex },
+	{ "view",                    view },
+	{ "viewall",                 viewallex },
+	{ "viewex",                  viewex },
+	{ "toggleview",              toggleview },
+	{ "shiftviewclients",        shiftviewclients },
+	{ "toggleviewex",            toggleviewex },
+	{ "tag",                     tag },
+	{ "tagall",                  tagallex },
+	{ "tagex",                   tagex },
+	{ "toggletag",               toggletag },
+	{ "toggletagex",             toggletagex },
+	{ "togglefullscreen",        togglefullscreen },
+	{ "togglescratch",           togglescratch },
+	{ "killclient",              killclient },
+	{ "quit",                    quit },
+	{ "setlayout",               setlayout },
+	{ "setlayoutex",             setlayoutex },
 };
+

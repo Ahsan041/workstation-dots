@@ -24,11 +24,18 @@ dragmfact(const Arg *arg)
 		return;
 	else if (m->lt[m->sellt]->arrange == &centeredmaster && (fixed || n - m->nmaster > 1))
 		center = 1;
+	else if (m->lt[m->sellt]->arrange == &bstack)
+		horizontal = 1;
+	else if (m->lt[m->sellt]->arrange == &bstackhoriz)
+		horizontal = 1;
 
 	/* do not allow mfact to be modified under certain conditions */
 	if (!m->lt[m->sellt]->arrange                            // floating layout
 		|| (!fixed && m->nmaster && n <= m->nmaster) // no master
-		|| m->lt[m->sellt]->arrange == &monocle
+		|| m->lt[m->sellt]->arrange == &grid
+		|| m->lt[m->sellt]->arrange == &horizgrid
+		|| m->lt[m->sellt]->arrange == &gaplessgrid
+		|| m->lt[m->sellt]->arrange == &nrowgrid
 	)
 		return;
 
