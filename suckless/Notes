@@ -1,13 +1,34 @@
-packages to install:
-imlib2
+#define BAR_ANYBAR_PATCH 1
+#define BAR_ANYBAR_MANAGE_WIDTH_PATCH 1
+#define BAR_EWMHTAGS_PATCH 1
+#define ALWAYSCENTER_PATCH 1
+#define ATTACHASIDE_PATCH 1
+#define CENTER_TRANSIENT_WINDOWS_BY_PARENT_PATCH 1
+#define CFACTS_PATCH 1
+#define DISTRIBUTETAGS_PATCH 1
+#define DRAGCFACT_PATCH 1
+#define DRAGMFACT_PATCH 1
+#define INSETS_PATCH 1
+#define IPC_PATCH 1
+#define KEYMODES_PATCH 1
+#define LG3D_PATCH 1
+#define MOVESTACK_PATCH 1
+#define NODMENU_PATCH 1
+#define PUSH_PATCH 1
+#define RESIZEPOINT_PATCH 1
+#define ROTATESTACK_PATCH 1
+#define ROUNDED_CORNERS_PATCH 1
+#define SAVEFLOATS_PATCH 1
+#define SEAMLESS_RESTART_PATCH 1
+#define SHIFTVIEW_PATCH 1
+#define SWAPTAGS_PATCH 1
+#define SWITCHTAG_PATCH 1
+#define TOGGLEFULLSCREEN_PATCH 1
+#define TOGGLELAYOUT_PATCH 1
+#define TOGGLETAG_PATCH 1
 
-config.mk
-lXrender lXest
+scratchpads_i3
+hide-and-restore-windows
 
-dwmc patch
-/* Simple dwmc client using a fork of fsignal to communicate with dwm.
- * To use this either copy the patch/dwmc shell script to somewhere in your path or
- * uncomment the following line in Makefile:
- *    #cp -f patch/dwmc ${DESTDIR}${PREFIX}/bin
- * http://dwm.suckless.org/patches/dwmc/
- */
+
+
